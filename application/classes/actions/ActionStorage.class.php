@@ -84,24 +84,10 @@ class ActionStorage extends Action
     # Функция получания файла по ссылкке /storage/sendfile/
     protected function EventSendFile()
     {
-//        echo "Загрузка файла:\n";
-//        echo "\tИмя: ";
-//        echo print_r($_FILES['file']['name']);
-//        echo "\n\tРазмер: ";
-//        echo print_r($_FILES['file']['size']);
-//          $hash = uniqid('');
-//          echo "\n\thash: ".$hash;
-//        $uploaddir = './storage/';
-//        $uploadfile = $uploaddir.basename($_FILES['file']['name']);
-//        copy($_FILES['file']['tmp_name'], $uploadfile);
-//        $this->ModuleStor_Set($hash, $uploadfile, $this);
-//        $uploaddir = './storage/';
-//        $uploadfile = $uploaddir.basename($_FILES['file']['name']);
         $description='';
 
         if (getRequest('submit_upload')) {
             echo $description;
-//            $File_upload = is_uploaded_file($_FILES['file']['tmp_name']);
             $uploadfile = './storage/'.basename($_FILES['file']['name']);
             $download = 'http://iu8-praktika.ru/storage/';
             $fileexists=file_exists($uploadfile);
@@ -131,7 +117,6 @@ class ActionStorage extends Action
             }
 
         }
-
 
         /**
          * Устанавливаем шаблон вывода
