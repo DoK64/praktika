@@ -46,8 +46,8 @@ class ActionStorage extends Action
     protected function RegisterEvent()
     {
         $this->AddEvent('index', 'EventIndex');
-        # $this->AddEventPreg('/^getfile$/i', '/^[\w\-]{1,50}$/i', 'EventGetFile');
-        $this->AddEventPreg('/^get$/i', 'EventGetFile');
+//        $this->AddEventPreg('/^getfile$/i', '/^[\w\-]{1,50}$/i', 'EventGetFile');
+        $this->AddEventPreg('/^get/i', 'EventGetFile');
         $this->AddEventPreg('/^send/i', 'EventSendFile');
     }
 
@@ -74,11 +74,12 @@ class ActionStorage extends Action
     {
         #echo "Скачать файл с хэшем: ".getRequest('hash');
             #$this->GetParamEventMatch(0,0);
-        $hash = $this->Storage_Get(getRequest('hash'), $this);
+//        echo $this->Storage_Get(getRequest('hash'), $this);
+        echo $hash = "5795de7fafbbd";
         /**
          * Устанавливаем шаблон вывода
          */
-        echo print_r($oStortestdb = LS::E()->Stortestdb_GetLinkByHash($hash));
+        echo print_r($oStortestdb = LS::E()->Storagedatabase_GetStortestdbByHash($hash));
         $this->SetTemplate(false);
     }
 
@@ -104,7 +105,7 @@ class ActionStorage extends Action
             } else {
 
                 $File_upload = is_uploaded_file($_FILES['file']['tmp_name']);
-                $hash = uniqid('',true);
+                $hash = uniqid('');
 
                 copy($_FILES['file']['tmp_name'], $uploadfile);
 
