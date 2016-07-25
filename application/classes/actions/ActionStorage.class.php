@@ -74,10 +74,11 @@ class ActionStorage extends Action
     {
         #echo "Скачать файл с хэшем: ".getRequest('hash');
             #$this->GetParamEventMatch(0,0);
-        echo print_r($this->Storage_Get(getRequest('hash'), $this));
+        $hash = $this->Storage_Get(getRequest('hash'), $this);
         /**
          * Устанавливаем шаблон вывода
          */
+        echo print_r($oStortestdb = LS::E()->Stortestdb_GetLinkByHash($hash));
         $this->SetTemplate(false);
     }
 
@@ -112,8 +113,12 @@ class ActionStorage extends Action
                 $this->Viewer_Assign('fsize', $_FILES['file']['size']);
                 $this->Viewer_Assign('download', $download.=$_FILES['file']['name']);
                 $this->Viewer_Assign('File_upload', $File_upload);
-                $this->ModuleStor_Set($hash, $download, $this);
-                $this->Viewer_Assign('iddownload', $this->ModuleStor_Get($hash, $this));
+                $oStortestdb = LS::Ent('Storagedatabase_Stortestdb');
+                $oStortestdb->setHash($hash);
+                $oStortestdb->setLink($download);
+                $oStortestdb->setDesc('Описание файла');
+                $oStortestdb->Save();
+                $this->Viewer_Assign('iddownload', $hash);
             }
 
         }
