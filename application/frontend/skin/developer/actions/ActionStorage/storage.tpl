@@ -11,10 +11,6 @@
       <input type='file' name='file'>
       <input type='submit' name='submit_upload' value='Загрузить'></form>
    <br>
-   {if $profitfile eq true}
-
-      <h5>Ваш  файл существует:  {$faled}</h5>
-   {/if}
 
    {if $File_upload eq false}
       <h5>Выберите новый файл.</h5><br>

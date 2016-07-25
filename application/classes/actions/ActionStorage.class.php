@@ -72,55 +72,55 @@ class ActionStorage extends Action
 
     protected function EventGetFile()
     {
-        #echo "Скачать файл с хэшем: ".getRequest('hash');
-            #$this->GetParamEventMatch(0,0);
-//        echo $this->Storage_Get(getRequest('hash'), $this);
-        echo $hash = "5795de7fafbbd";
+        $hash = getRequest('hash');
+//        $oStortestdb = LS::E()->Storagedatabase_GetStortestdbByHash($hash);
+//        header('Location:' . $oStortestdb->getLink());
+        $oStortestdb = LS::E()->Storagedatabase_GetStortestdbItemsAll();
+        $this->Viewer_Assign('oStortestdb', $oStortestdb);
+
         /**
          * Устанавливаем шаблон вывода
          */
-        echo print_r($oStortestdb = LS::E()->Storagedatabase_GetStortestdbByHash($hash));
-        $this->SetTemplate(false);
+        $this->SetTemplateAction('upload');
     }
 
     # Функция получания файла по ссылкке /storage/sendfile/
     protected function EventSendFile()
     {
-        $description='';
 
         if (getRequest('submit_upload')) {
-            echo $description;
-            $uploadfile = './storage/'.basename($_FILES['file']['name']);
+            // новое имя файла
+            $description = getRequest('description');
+            $oldname = $_FILES['file']['name'];
+            $hash = uniqid('');
+
+            // копируем файл в директория
+            $_FILES['file']['name'] = $hash;
+            $uploadfile = './storage/' . basename($_FILES['file']['name']);
+            copy($_FILES['file']['tmp_name'], $uploadfile);
+
+            // генерируем ссылку на скачивание
             $download = 'http://iu8-praktika.ru/storage/';
-            $fileexists=file_exists($uploadfile);
-            $this->Viewer_Assign('profitfile', $fileexists);
-            //Проверка на повтор.
-            if ($fileexists)
-            {
+            $File_upload = is_uploaded_file($_FILES['file']['tmp_name']);
 
-                $download = 'http://iu8-praktika.ru';
-                $download .= substr($uploadfile, 1);
-                $this->Viewer_Assign('faled', $download);
+            // передача переменных в шаблон
+            $this->Viewer_Assign('hash', $hash);
+            $this->Viewer_Assign('fname', $oldname);
+            $this->Viewer_Assign('fsize', $_FILES['file']['size']);
+            $this->Viewer_Assign('download', $download .= $_FILES['file']['name']);
+            $this->Viewer_Assign('description',$description);
+            $this->Viewer_Assign('File_upload', $File_upload);
 
-            } else {
+            // запись в базу данных
+            $oStortestdb = LS::Ent('Storagedatabase_Stortestdb');
+            $oStortestdb->setHash($hash);
+            $oStortestdb->setLink($download);
 
-                $File_upload = is_uploaded_file($_FILES['file']['tmp_name']);
-                $hash = uniqid('');
+            $oStortestdb->setDesc($description);
+            $oStortestdb->Save();
 
-                copy($_FILES['file']['tmp_name'], $uploadfile);
+            $this->Viewer_Assign('iddownload', $download);
 
-                $this->Viewer_Assign('hash', $hash);
-                $this->Viewer_Assign('fname', $_FILES['file']['name']);
-                $this->Viewer_Assign('fsize', $_FILES['file']['size']);
-                $this->Viewer_Assign('download', $download.=$_FILES['file']['name']);
-                $this->Viewer_Assign('File_upload', $File_upload);
-                $oStortestdb = LS::Ent('Storagedatabase_Stortestdb');
-                $oStortestdb->setHash($hash);
-                $oStortestdb->setLink($download);
-                $oStortestdb->setDesc('Описание файла');
-                $oStortestdb->Save();
-                $this->Viewer_Assign('iddownload', $hash);
-            }
 
         }
 
