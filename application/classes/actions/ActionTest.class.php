@@ -64,9 +64,19 @@ class ActionTest extends Action
     protected function EventTest()
     {
 
-//        Echo"ghbdtn";
 
-        echo $this->ModuleDatabase_IsTableExists('prefix_testconnect');
+        $oStortestdb = LS::Ent('Storagedatabase_Stortestdb');
+        echo print_r($oStortestdb)."\n";
+        // задание свойств модели
+        $oStortestdb->setHash("opopo");
+        echo print_r($oStortestdb)."\n";
+        $oStortestdb->setLink('Jojojo');
+        echo print_r($oStortestdb)."\n";
+        $oStortestdb->setDesc('Jojojo');
+        echo print_r($oStortestdb)."\n";
+        $oStortestdb->Save();
+        echo print_r($oStortestdb)."\n";
+
         $One='qwer';
             $Two='qwer1';
                 $Three='qwer2';

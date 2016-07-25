@@ -111,7 +111,7 @@ $config['db']['table']['testconnect'] = '___db.table.prefix___testconnect';
 $config['db']['table']['user'] = '___db.table.prefix___user';
 $config['db']['table']['user_session'] = '___db.table.prefix___session';
 $config['db']['table']['user_reminder'] = '___db.table.prefix___reminder';
-$config['db']['table']['test'] = '___db.table.prefix___test';
+$config['db']['table']['storagedatabase_stortestdb'] = '___db.table.prefix___storagedatabase_stortestdb';
 
 /**
  * Настройки роутинга

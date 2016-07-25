@@ -1,6 +1,6 @@
 <?php
 
-class ModuleStordat extends ModuleORM
+class ModuleStoragedatabase extends ModuleORM
 {
 
     /**
@@ -9,4 +9,6 @@ class ModuleStordat extends ModuleORM
     public function Init() {
         parent::Init();
     }
+
 }
+?>
