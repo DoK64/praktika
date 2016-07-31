@@ -93,7 +93,6 @@ class ActionStorage extends Action
             $description = getRequest('description');
             $oldname = $_FILES['file']['name'];
             $hash = uniqid('');
-
             // копируем файл в директория
             $_FILES['file']['name'] = $hash;
             $uploadfile = './storage/' . basename($_FILES['file']['name']);
@@ -115,7 +114,6 @@ class ActionStorage extends Action
             $oStortestdb = LS::Ent('Storagedatabase_Stortestdb');
             $oStortestdb->setHash($hash);
             $oStortestdb->setLink($download);
-
             $oStortestdb->setDesc($description);
             $oStortestdb->Save();
 

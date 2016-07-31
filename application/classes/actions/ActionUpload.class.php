@@ -100,7 +100,7 @@ class ActionUpload extends Action
         $description='';
 
         if (getRequest('submit_upload')) {
-            echo $description;
+//            echo $description;
 //            $File_upload = is_uploaded_file($_FILES['file']['tmp_name']);
             $uploaddir = './storage/';
             $uploadfile = $uploaddir . basename($_FILES['file']['name']);
@@ -122,7 +122,6 @@ class ActionUpload extends Action
                 $uploadfile = $uploaddir . basename($_FILES['file']['name']);
                 $hash = uniqid('');
                 $this->Viewer_Assign('hash', $hash);
-
                 $this->Viewer_Assign('fname', $_FILES['file']['name']);
                 $this->Viewer_Assign('fsize', $_FILES['file']['size']);
                 $download = 'http://iu8-praktika.ru';
