@@ -10,7 +10,7 @@
    <form action='' method='POST' enctype='multipart/form-data'>
        Описание: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<input type="text"  name="description" valiue=""/><br><br>
        Путь загрузки файла:&nbsp;  <input type="text" name="address" value=""/><br><br>
-       <input type='file' name='file'>
+       <input type='file' name='file' >
        <input type='submit' name='submit_upload' value='Загрузить'></form>
    <br>
 </h5>
