@@ -9,7 +9,8 @@
 
         {foreach $oStortestdb as $oFile}
             <tr>
-                 <td><a href={$oFile->getLink()}>{$oFile->getHash()}</a></td><td>{$oFile->getDesc()}</td>
+
+                 <td><a href=http://iu8-praktika.ru/storage/tyu/?hash={$oFile->getHash()}>{$oFile->getHash()}</a></td><td>{$oFile->getDesc()}</td>
 
             </tr>
         {/foreach}
